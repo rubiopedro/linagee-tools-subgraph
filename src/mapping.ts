@@ -232,6 +232,7 @@ function createLog(type: string, name: string, transaction: ethereum.Transaction
       let log = new LinageeLog(linageeName.registerIndex.toString() + '-' + linageeName.logsIndex.toString());
       log.type = type;
       log.data = transaction.input.toHexString();
+      log.txHash = transaction.hash.toHexString();
       log.block = block.number;
       log.linageeName = linageeName.id;
       log.save();

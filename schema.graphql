@@ -42,4 +42,5 @@ type LinageeLog @entity {
   block: BigInt
   type: String
   data: String
+  txHash: String
 }
