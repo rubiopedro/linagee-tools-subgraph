@@ -1,0 +1,21 @@
+{
+  "name": "linagee-tools-subgraph",
+  "version": "1.0.0",
+  "repository": "https://github.com/rubiopedro/linagee-tools-subgraph",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create": "graph create linagee-legacy --node https://api.thegraph.com/deploy/",
+    "deploy": "graph deploy linagee-legacy --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.30.2",
+    "@graphprotocol/graph-ts": "^0.27.0",
+    "assemblyscript-regex": "^1.6.4"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "gluegun": "^5.1.2"
+  }
+}

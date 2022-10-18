@@ -1,0 +1,48 @@
+specVersion: 0.0.4
+description: Linagee Name Registrar subgraph
+repository: https://github.com/rubiopedro/linagee-tools-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: LinageeLegacy
+    network: mainnet
+    source:
+      address: '0x5564886ca2c518d1964e5fcea4f423b41db9f561'
+      abi: LinageeLegacy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Board
+      abis:
+        - name: LinageeLegacy
+          file: ./abis/LinageeLegacy.json
+      eventHandlers:
+        - event: Changed(indexed bytes32)
+          handler: handleChanged
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: LinageeWrapped
+    network: mainnet
+    source:
+      address: '0x2cc8342d7c8bff5a213eb2cde39de9a59b3461a7'
+      abi: LinageeWrapper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Board
+      abis:
+        - name: LinageeWrapper
+          file: ./abis/LinageeWrapper.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Unwrapped(indexed uint256,indexed address,bytes32)
+          handler: handleUnwrapped
+        - event: Wrapped(indexed uint256,indexed address,bytes32)
+          handler: handleWrapped
+      file: ./src/mapping.ts

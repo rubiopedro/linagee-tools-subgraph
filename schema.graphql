@@ -1,0 +1,45 @@
+type Stats @entity {
+  id: ID!
+  activeRegisters: Int
+  registers: Int
+  transfers: Int
+  wraps: Int
+}
+
+type Holder @entity {
+  id: ID!
+  firstTime: BigInt
+  totalNames: Int
+  legacyNames: Int
+  wrappedNames: Int
+}
+
+type LinageeName @entity {
+  id: ID! #registered name
+  registerIndex: Int
+  logsIndex: Int
+
+  name: String
+  owner: Bytes! #owner address
+  wrappedOwner: Bytes! #owner address
+  subRegistrar: Bytes! #subRegistrar address
+  wrapped: Boolean
+  registered: Boolean
+
+  linageeNameWrapped: LinageeNameWrapped
+  logs: [LinageeLog!]! @derivedFrom(field: "linageeName")
+}
+
+type LinageeNameWrapped @entity {
+  id: ID!
+  linageeName: LinageeName
+  owner: Bytes! #owner address
+}
+
+type LinageeLog @entity {
+  id: ID!
+  linageeName: LinageeName
+  block: BigInt
+  type: String
+  data: String
+}
